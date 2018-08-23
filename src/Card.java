@@ -3,56 +3,39 @@ import java.util.HashMap;
 public class Card {
 
     String cardCode;
+    String cardColor;
+    int cardValue;
 
     public Card(String cardCode) throws IllegalArgumentException {
-
         this.cardCode = cardCode;
+
         String validCardColors = "SCDH";
-        String cardColor = this.cardCode.substring(0, 1).toUpperCase();
+        this.cardColor = this.cardCode.substring(0, 1).toUpperCase();
 
         if (!validCardColors.contains(cardColor))
         {
             throw new IllegalArgumentException("card color isn't valid: " + cardColor);
         }
 
-        String cardValue = cardCode.substring(1).toUpperCase();
-        Integer intCardValue;
+        String givenCardValue = cardCode.substring(1).toUpperCase();
+        HashMap<String, Integer> alphabeticCardValues = new HashMap<>();
+        alphabeticCardValues.put("J", 11);
+        alphabeticCardValues.put("Q", 12);
+        alphabeticCardValues.put("K", 13);
+        alphabeticCardValues.put("A", 14);
 
-        HashMap<String, Integer> alphabeticCardValue = new HashMap<>();
-        alphabeticCardValue.put("J", 11);
-        alphabeticCardValue.put("Q", 12);
-        alphabeticCardValue.put("K", 13);
-        alphabeticCardValue.put("A", 14);
-
-        if (alphabeticCardValue.get(cardCode.substring(1).toUpperCase()) == null) {
-            // raises exception if cardValue is a letter, but not J/Q/K/A
-            intCardValue = Integer.parseInt(cardValue);
-            if (intCardValue > 10) {
-                throw new IllegalArgumentException("card number isn't valid: " + intCardValue);
+        if (alphabeticCardValues.get(givenCardValue) == null) {
+            this.cardValue = Integer.parseInt(givenCardValue);
+            if (this.cardValue > 10 || this.cardValue < 2) {
+                throw new IllegalArgumentException("card number isn't valid: " + this.cardValue);
             }
-            if (intCardValue < 2) {
-                throw new IllegalArgumentException("card number isn't valid: " + intCardValue);
-            }
-
+        } else {
+            this.cardValue = alphabeticCardValues.get(givenCardValue);
         }
+
     }
 
     public int getValue() {
-        HashMap<String, Integer> alphabeticCardValue = new HashMap<>();
-        alphabeticCardValue.put("J", 11);
-        alphabeticCardValue.put("Q", 12);
-        alphabeticCardValue.put("K", 13);
-        alphabeticCardValue.put("A", 14);
-
-        String cardValue = cardCode.substring(1).toUpperCase();
-        Integer intCardValue;
-
-        if (alphabeticCardValue.get(cardCode.substring(1).toUpperCase()) == null) {
-            intCardValue = Integer.parseInt(cardValue);
-        } else {
-            intCardValue = alphabeticCardValue.get(cardCode.substring(1).toUpperCase());
-        }
-
-        return intCardValue;
+        return this.cardValue;
     }
 }
