@@ -5,14 +5,12 @@ public class Card {
     String cardCode;
 
     public Card(String cardCode) throws IllegalArgumentException {
-        this.cardCode = cardCode;
 
+        this.cardCode = cardCode;
+        String validCardColors = "SCDH";
         String cardColor = this.cardCode.substring(0, 1).toUpperCase();
 
-        if (!cardColor.contentEquals("S") &&
-            !cardColor.contentEquals("C") &&
-            !cardColor.contentEquals("D") &&
-            !cardColor.contentEquals("H"))
+        if (!validCardColors.contains(cardColor))
         {
             throw new IllegalArgumentException("card color isn't valid: " + cardColor);
         }
