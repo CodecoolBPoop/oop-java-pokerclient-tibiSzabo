@@ -8,9 +8,9 @@ class PokerClientTest {
         PokerClient pokerClientTest;
 
         pokerClientTest = new PokerClient("h3", "d2", "s3", "s4", "cq");
-        assertTrue(pokerClientTest.highestCardIsMine("s2", "h4", "s5", "d6", "sj"));
+        assertFalse(pokerClientTest.highestCardIsMine("s2", "h4", "s5", "d6", "sj"));
 
         pokerClientTest = new PokerClient("h3", "d2", "s3", "s4", "cq");
-        assertFalse(pokerClientTest.highestCardIsMine("d3", "h5", "s4", "d7", "sk"));
+        assertTrue(pokerClientTest.highestCardIsMine("d3", "h5", "s4", "d7", "sk"));
     }
 }
